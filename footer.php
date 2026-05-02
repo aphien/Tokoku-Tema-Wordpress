@@ -1,0 +1,97 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <h3 class="footer-title"><?php bloginfo( 'name' ); ?></h3>
+                <p><?php echo esc_html( get_theme_mod( 'tokoku_site_description', get_bloginfo( 'description' ) ) ); ?></p>
+            </div>
+            
+            <div class="footer-menu">
+                <h4 class="footer-title">Navigasi</h4>
+                <?php
+                wp_nav_menu( array(
+                    'theme_location' => 'footer',
+                    'container'      => false,
+                    'menu_class'     => 'footer-nav-list',
+                    'fallback_cb'    => false,
+                ) );
+                ?>
+            </div>
+
+            <div class="footer-contact">
+                <h4 class="footer-title">Kontak</h4>
+                <p><?php echo esc_html( get_theme_mod( 'tokoku_store_address' ) ); ?></p>
+                <p><?php echo esc_html( get_theme_mod( 'tokoku_store_email' ) ); ?></p>
+            </div>
+
+            <div class="footer-social">
+                <h4 class="footer-title">Ikuti Kami</h4>
+                <div class="social-links">
+                    <?php
+                    $socials = array( 'instagram', 'facebook', 'tiktok', 'youtube' );
+                    foreach ( $socials as $social ) {
+                        $url = get_theme_mod( "tokoku_social_{$social}" );
+                        if ( $url ) {
+                            echo '<a href="' . esc_url( $url ) . '" class="social-link ' . $social . '" target="_blank">' . ucfirst( $social ) . '</a>';
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                <?php
+                $copyright = get_theme_mod( 'tokoku_footer_copyright', '© {year} TokoKu. All rights reserved.' );
+                echo str_replace( '{year}', date( 'Y' ), esc_html( $copyright ) );
+                ?>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<div class="wa-float">
+    <a href="https://wa.me/<?php echo esc_attr( get_theme_mod( 'tokoku_wa_number', '6281234567890' ) ); ?>" class="wa-float__btn" target="_blank" aria-label="WhatsApp">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 2c-5.508 0-9.987 4.479-9.987 9.987 0 1.763.459 3.42 1.261 4.864l-1.286 4.698 4.814-1.263c1.402.766 2.998 1.199 4.698 1.199 5.508 0 9.988-4.479 9.988-9.987s-4.48-9.987-9.988-9.987zm5.541 14.22c-.226.639-1.318 1.171-1.812 1.233-.493.062-1.008.093-2.909-.643-2.316-.902-3.805-3.238-3.921-3.393-.116-.154-.949-1.264-.949-2.41 0-1.147.604-1.711.821-1.942.217-.231.472-.288.63-.288.157 0 .315.002.45.011.145.009.341-.054.534.412.193.466.66 1.603.718 1.72.059.117.098.252.02.408-.079.157-.118.255-.236.39-.118.136-.248.303-.354.407-.117.117-.24.244-.103.48.137.236.608 1.002 1.306 1.623.897.799 1.654 1.045 1.891 1.162.236.117.375.098.514-.06.139-.158.597-.696.757-.932.159-.236.319-.199.54-.117.221.083 1.401.66 1.641.779.24.118.399.176.458.277.059.102.059.589-.167 1.228z"/></svg>
+    </a>
+</div>
+
+<?php get_template_part( 'template-parts/whatsapp-modal' ); ?>
+
+<!-- Mobile Bottom Navigation -->
+<div class="bottom-nav">
+    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="nav-item <?php echo is_front_page() ? 'active' : ''; ?>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+    </a>
+    <a href="<?php echo esc_url( home_url( '/#categories' ) ); ?>" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>Kategori</span>
+    </a>
+    <a href="#" id="mobile-search-nav-trigger" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <span>Pencarian</span>
+    </a>
+    <a href="https://wa.me/<?php echo esc_attr( get_theme_mod( 'tokoku_wa_number', '6281234567890' ) ); ?>" class="nav-item" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        <span>WhatsApp</span>
+    </a>
+</div>
+
+<?php wp_footer(); ?>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('<?php echo get_template_directory_uri(); ?>/sw.js').then(function(registration) {
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
