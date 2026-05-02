@@ -294,6 +294,12 @@ function tokoku_ajax_handle_update() {
         wp_send_json_error( 'Invalid download URL' );
     }
 
+    // 🛡️ SECURITY: Only allow updates from the official GitHub repository
+    $trusted_source = 'https://api.github.com/repos/aphien/Tokoku-Tema-Wordpress';
+    if ( strpos( $download_url, $trusted_source ) !== 0 ) {
+        wp_send_json_error( 'Security Error: Untrusted update source detected.' );
+    }
+
     // Include required WordPress files for upgrader
     require_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
     require_once( ABSPATH . 'wp-admin/includes/theme.php' );
@@ -1273,7 +1279,7 @@ function tokoku_settings_page_html() {
                                     '<span class="dashicons dashicons-warning" style="color: #2563eb; font-size: 24px; width: 24px; height: 24px;"></span> ' +
                                     '<strong style="font-size: 1.1rem;"><?php esc_html_e( 'Versi Baru Tersedia!', 'tokoku' ); ?> (' + latestVersion + ')</strong>' +
                                     '</div>' +
-                                    '<p style="margin: 0 0 20px 34px; font-size: 0.95rem; color: #1e40af; line-height: 1.5;"><?php esc_html_e( 'Pembaruan v' + latestVersion + ' telah dirilis dengan fitur dan peningkatan keamanan terbaru. Klik tombol di bawah untuk memperbarui secara otomatis.', 'tokoku' ); ?></p>' +
+                                    '<p style="margin: 0 0 20px 34px; font-size: 0.95rem; color: #1e40af; line-height: 1.5;"><?php esc_html_e( 'Pembaruan v', 'tokoku' ); ?>' + latestVersion + ' <?php esc_html_e( 'telah dirilis dengan fitur dan peningkatan keamanan terbaru. Klik tombol di bawah untuk memperbarui secara otomatis.', 'tokoku' ); ?></p>' +
                                     '<div style="margin-left: 34px; display: flex; gap: 10px;">' +
                                     '<button type="button" id="tokoku-install-update" data-url="' + data.zipball_url + '" class="button button-primary" style="height: 44px; padding: 0 25px; background: #2563eb; border-color: #2563eb; font-weight: 600;">' +
                                     '<span class="dashicons dashicons-update" style="vertical-align: middle; margin-right: 5px;"></span> <?php esc_html_e( 'Perbarui Sekarang', 'tokoku' ); ?>' +
