@@ -4,8 +4,17 @@
  */
 
 function tokoku_generate_dummy_data() {
-    if ( ! current_user_can( 'manage_options' ) || ! isset( $_GET['generate_dummy_data'] ) ) {
+    // 1. Security Check: Nonce & Capability
+    if ( ! isset( $_GET['generate_dummy_data'] ) ) {
         return;
+    }
+
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( esc_html__( 'You do not have permission to perform this action.', 'tokoku' ) );
+    }
+
+    if ( ! check_admin_referer( 'tokoku_generate_dummy_action', '_wpnonce' ) ) {
+        wp_die( esc_html__( 'Security check failed. Please try again.', 'tokoku' ) );
     }
 
     // 1. Create Categories

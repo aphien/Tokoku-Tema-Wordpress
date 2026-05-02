@@ -46,7 +46,12 @@ $stok_status  = tokoku_get_stok_status();
         </div>
         
         <h3 class="product-card__title">
-            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+            <a href="<?php the_permalink(); ?>">
+                <?php 
+                $title = get_the_title();
+                echo esc_html( mb_strimwidth( $title, 0, 20, '...' ) ); 
+                ?>
+            </a>
         </h3>
 
         <?php if ( get_theme_mod( 'tokoku_show_price', 'yes' ) === 'yes' ) : ?>

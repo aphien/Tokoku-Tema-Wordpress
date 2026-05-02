@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'TOKOKU_VERSION', time() );
+define( 'TOKOKU_VERSION', '1.4.1' );
 define( 'TOKOKU_DIR', get_template_directory() );
 define( 'TOKOKU_URI', get_template_directory_uri() );
 
@@ -42,7 +42,19 @@ add_action( 'after_setup_theme', 'tokoku_setup' );
  */
 function tokoku_scripts() {
     wp_enqueue_style( 'dashicons' );
-    wp_enqueue_style( 'tokoku-google-fonts', 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap', array(), null );
+    
+    // Dynamic Google Fonts
+    $body_font = get_theme_mod( 'tokoku_font_body', 'Plus Jakarta Sans' );
+    $heading_font = get_theme_mod( 'tokoku_font_headings', 'Plus Jakarta Sans' );
+    $fonts_to_load = array_unique( array( $body_font, $heading_font ) );
+    $font_query = array();
+    
+    foreach ( $fonts_to_load as $font ) {
+        $font_query[] = str_replace( ' ', '+', $font ) . ':ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400';
+    }
+    
+    $google_fonts_url = 'https://fonts.googleapis.com/css2?family=' . implode( '&family=', $font_query ) . '&display=swap';
+    wp_enqueue_style( 'tokoku-google-fonts', $google_fonts_url, array(), null );
     wp_enqueue_style( 'tokoku-main-style', TOKOKU_URI . '/assets/css/main.css', array( 'tokoku-google-fonts', 'dashicons' ), TOKOKU_VERSION );
     wp_enqueue_style( 'tokoku-style', get_stylesheet_uri(), array( 'tokoku-main-style' ), TOKOKU_VERSION );
 
@@ -68,6 +80,32 @@ function tokoku_scripts() {
 add_action( 'wp_enqueue_scripts', 'tokoku_scripts' );
 
 /**
+ * Output Dynamic Typography CSS
+ */
+function tokoku_typography_css() {
+    $body_font    = get_theme_mod( 'tokoku_font_body', 'Plus Jakarta Sans' );
+    $heading_font = get_theme_mod( 'tokoku_font_headings', 'Plus Jakarta Sans' );
+    $base_size    = get_theme_mod( 'tokoku_font_size_base', 16 );
+    $h1_size      = get_theme_mod( 'tokoku_font_size_h1', 2.5 );
+
+    ?>
+    <style id="tokoku-typography-custom">
+        :root {
+            --font-body: '<?php echo esc_attr( $body_font ); ?>', sans-serif;
+            --font-heading: '<?php echo esc_attr( $heading_font ); ?>', sans-serif;
+            --font-size-base: <?php echo absint( $base_size ); ?>px;
+        }
+        body { font-family: var(--font-body); font-size: var(--font-size-base); }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+        h1 { font-size: <?php echo esc_attr( $h1_size ); ?>rem; }
+        h2 { font-size: calc(<?php echo esc_attr( $h1_size ); ?>rem * 0.8); }
+        h3 { font-size: calc(<?php echo esc_attr( $h1_size ); ?>rem * 0.6); }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'tokoku_typography_css', 100 );
+
+/**
  * Register Widget Areas
  */
 function tokoku_widgets_init() {
@@ -85,6 +123,7 @@ require_once TOKOKU_DIR . '/includes/admin-page.php';
 require_once TOKOKU_DIR . '/includes/ajax-search.php';
 require_once TOKOKU_DIR . '/includes/seo.php';
 require_once TOKOKU_DIR . '/includes/dummy-data.php';
+require_once TOKOKU_DIR . '/includes/taxonomy-meta.php';
 
 /**
  * Add footer credit in admin area
@@ -118,6 +157,17 @@ add_filter( 'get_the_archive_title', 'tokoku_archive_title' );
 // Custom excerpt
 add_filter( 'excerpt_length', function( $l ) { return is_admin() ? $l : 20; } );
 add_filter( 'excerpt_more', function() { return '&hellip;'; } );
+
+// Disable Gutenberg Editor
+add_filter('use_block_editor_for_post', '__return_false', 10);
+add_filter('use_block_editor_for_post_type', '__return_false', 10);
+
+// Disable Gutenberg Styles
+add_action( 'wp_enqueue_scripts', function() {
+    wp_dequeue_style( 'wp-block-library' );
+    wp_dequeue_style( 'wp-block-library-theme' );
+    wp_dequeue_style( 'wc-block-style' );
+}, 100 );
 
 /**
  * Products per page + sorting

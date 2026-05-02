@@ -1,23 +1,47 @@
-# 🛍️ TokoKu - Premium WhatsApp Store Theme
+# 🛍️ TokoKu - Premium WhatsApp Store Theme (v1.4.0)
 
-**TokoKu** adalah tema WordPress yang dirancang khusus untuk toko online minimalis yang berfokus pada sistem pemesanan langsung melalui WhatsApp. Tema ini menghilangkan kerumitan WooCommerce, memberikan pengalaman belanja yang cepat, ringan, dan sangat intuitif baik di perangkat mobile maupun desktop.
+**TokoKu** adalah tema WordPress premium yang dirancang khusus untuk toko online minimalis dengan sistem pemesanan langsung melalui WhatsApp. Tema ini menghilangkan kerumitan WooCommerce, memberikan pengalaman belanja yang cepat, ringan, dan sangat intuitif baik di perangkat mobile maupun desktop.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Fitur Utama v1.4.0
 
-### 📱 Pengalaman Mobile yang Sempurna
-*   **Bottom Navigation**: Navigasi bawah ala aplikasi native yang menyertakan tombol akses cepat WhatsApp, Pencarian, dan Beranda.
-*   **Adaptive Banner**: Slider banner yang otomatis menyesuaikan rasio (4:3 di mobile) untuk mencegah pemotongan gambar dan teks yang krusial.
-*   **Touch Feedback**: Efek interaktif (micro-interactions) pada setiap tombol untuk pengalaman pengguna yang lebih nyata.
+### 📱 Pengalaman Mobile & Desktop yang Optimal
+*   **Bolder Header**: Header desktop yang diperbesar untuk branding yang lebih kuat dan navigasi yang lebih mudah.
+*   **Bottom Navigation**: Navigasi bawah ala aplikasi native untuk akses cepat di perangkat seluler.
+*   **Adaptive Hero Slider**: Slider banner (hingga 10 slide) yang otomatis menyesuaikan rasio untuk visual maksimal di semua layar.
+*   **Touch Feedback**: Efek interaktif premium pada setiap tombol untuk pengalaman pengguna yang lebih nyata.
 
-### 🔍 Sistem Pencarian AJAX
-*   Hasil pencarian produk muncul secara instan tanpa perlu memuat ulang halaman.
-*   Limitasi cerdas (Top 3 Produk) untuk menjaga kecepatan dan estetika tampilan hasil.
+### 🎨 Tipografi & Desain Global
+*   **Typography Engine**: Pilih dari 10+ font Google Fonts (Inter, Poppins, Roboto, dll) langsung dari dashboard.
+*   **Smart Scaling**: Kontrol penuh atas ukuran teks dasar dan skala judul (H1) secara global.
+*   **Dark Mode Ready**: Tampilan dinamis yang mendukung mode gelap otomatis atau manual.
+*   **Compact Blog Grid**: Layout artikel terbaru yang lebih seimbang dengan tombol Call-to-Action (CTA) yang profesional.
 
-### 🎨 Desain Modern & Dinamis
-*   **Light/Dark Mode Ready**: Tampilan halaman produk yang otomatis menyesuaikan dengan preferensi mode pengguna.
-*   **Premium Typography**: Menggunakan font *Plus Jakarta Sans* dengan pengaturan tipografi standar web profesional.
+### 🔍 Pencarian & Navigasi Cerdas
+*   **AJAX Instant Search**: Hasil pencarian produk, kategori, dan tag muncul seketika tanpa refresh halaman.
+*   **Smart Filtering**: Filter kategori produk yang dioptimalkan khusus untuk pengguna mobile.
+
+### 🛠️ Admin Dashboard Profesional
+*   **Vertical Tabbed Interface**: Manajemen Testimoni, Logo Partner, dan Banner Slider menggunakan sistem tab vertikal yang rapi.
+*   **Advanced Repeater**: Tambah hingga 10 Banner, 20 Testimoni, dan 50 Logo klien dengan mudah.
+*   **Security First**: Dibangun dengan sistem keamanan Nonce Verification dan sanitasi data yang ketat untuk perlindungan maksimal.
+
+---
+
+## 🚀 Instalasi & Penggunaan
+
+1.  **Instalasi**: Upload folder `tokoku` ke direktori `/wp-content/themes/`.
+2.  **Konfigurasi**: Masuk ke **TokoKu Settings** di sidebar admin WordPress.
+3.  **WhatsApp**: Masukkan nomor WhatsApp Anda (format: 628123...) di tab WhatsApp.
+4.  **Konten**: Gunakan Fitur **Dummy Data** di dashboard untuk memulai dengan cepat.
+
+---
+
+## 📄 Lisensi & Kredit
+Dikembangkan oleh **m.alfiandiismet**.
+Theme ini menggunakan Dashicons dan Google Fonts untuk estetika premium.
+
 *   **Sistem Desain Terintegrasi**: Warna tombol, teks, dan elemen UI lainnya sepenuhnya terikat pada sistem variabel CSS yang dapat diubah via Customizer.
 
 ### ⚙️ Dashboard Admin Khusus
