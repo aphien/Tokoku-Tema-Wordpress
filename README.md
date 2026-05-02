@@ -1,78 +1,64 @@
-# 🛍️ TokoKu - Premium WhatsApp Store Theme (v1.4.0)
+# 🛍️ TokoKu - Tema E-Commerce WordPress Premium
 
-**TokoKu** adalah tema WordPress premium yang dirancang khusus untuk toko online minimalis dengan sistem pemesanan langsung melalui WhatsApp. Tema ini menghilangkan kerumitan WooCommerce, memberikan pengalaman belanja yang cepat, ringan, dan sangat intuitif baik di perangkat mobile maupun desktop.
-
----
-
-## ✨ Fitur Utama v1.4.0
-
-### 📱 Pengalaman Mobile & Desktop yang Optimal
-*   **Bolder Header**: Header desktop yang diperbesar untuk branding yang lebih kuat dan navigasi yang lebih mudah.
-*   **Bottom Navigation**: Navigasi bawah ala aplikasi native untuk akses cepat di perangkat seluler.
-*   **Adaptive Hero Slider**: Slider banner (hingga 10 slide) yang otomatis menyesuaikan rasio untuk visual maksimal di semua layar.
-*   **Touch Feedback**: Efek interaktif premium pada setiap tombol untuk pengalaman pengguna yang lebih nyata.
-
-### 🎨 Tipografi & Desain Global
-*   **Typography Engine**: Pilih dari 10+ font Google Fonts (Inter, Poppins, Roboto, dll) langsung dari dashboard.
-*   **Smart Scaling**: Kontrol penuh atas ukuran teks dasar dan skala judul (H1) secara global.
-*   **Dark Mode Ready**: Tampilan dinamis yang mendukung mode gelap otomatis atau manual.
-*   **Compact Blog Grid**: Layout artikel terbaru yang lebih seimbang dengan tombol Call-to-Action (CTA) yang profesional.
-
-### 🔍 Pencarian & Navigasi Cerdas
-*   **AJAX Instant Search**: Hasil pencarian produk, kategori, dan tag muncul seketika tanpa refresh halaman.
-*   **Smart Filtering**: Filter kategori produk yang dioptimalkan khusus untuk pengguna mobile.
-
-### 🛠️ Admin Dashboard Profesional
-*   **Vertical Tabbed Interface**: Manajemen Testimoni, Logo Partner, dan Banner Slider menggunakan sistem tab vertikal yang rapi.
-*   **Advanced Repeater**: Tambah hingga 10 Banner, 20 Testimoni, dan 50 Logo klien dengan mudah.
-*   **Security First**: Dibangun dengan sistem keamanan Nonce Verification dan sanitasi data yang ketat untuk perlindungan maksimal.
+Selamat datang di **TokoKu**, tema WordPress e-commerce modern, ringan, dan elegan yang dirancang khusus untuk kemudahan transaksi via WhatsApp tanpa membebani server Anda dengan WooCommerce.
 
 ---
 
-## 🚀 Instalasi & Penggunaan
-
-1.  **Instalasi**: Upload folder `tokoku` ke direktori `/wp-content/themes/`.
-2.  **Konfigurasi**: Masuk ke **TokoKu Settings** di sidebar admin WordPress.
-3.  **WhatsApp**: Masukkan nomor WhatsApp Anda (format: 628123...) di tab WhatsApp.
-4.  **Konten**: Gunakan Fitur **Dummy Data** di dashboard untuk memulai dengan cepat.
-
----
-
-## 📄 Lisensi & Kredit
-Dikembangkan oleh **m.alfiandiismet**.
-Theme ini menggunakan Dashicons dan Google Fonts untuk estetika premium.
-
-*   **Sistem Desain Terintegrasi**: Warna tombol, teks, dan elemen UI lainnya sepenuhnya terikat pada sistem variabel CSS yang dapat diubah via Customizer.
-
-### ⚙️ Dashboard Admin Khusus
-*   **TokoKu Dashboard**: Halaman admin khusus yang tertata rapi untuk akses cepat ke seluruh pengaturan tema.
-*   **Manajemen Produk**: Kolom **SKU (Kode Produk)** dan **Foto** di daftar produk admin untuk kemudahan inventaris.
-*   **On/Off Harga**: Fitur untuk menyembunyikan harga produk secara global (Mode Katalog).
+## 🚀 Fitur Unggulan
+- **Checkout via WhatsApp**: Pembeli langsung terhubung ke nomor WhatsApp Anda dengan format pesanan otomatis.
+- **Sangat Ringan & Cepat**: Dibangun secara native tanpa ketergantungan pada plugin e-commerce berat.
+- **Desain Premium & Responsif**: Tampilan mewah ala SaaS yang terlihat sempurna di semua perangkat (Mobile-First).
+- **One-Click Update**: Nikmati pembaruan tema otomatis layaknya di ThemeForest.
+- **Panel Admin Kustom**: Manajemen warna, tipografi, banner, dan testimoni langsung dari dashboard admin.
 
 ---
 
-## 🚀 Cara Instalasi
+## 📥 Panduan Instalasi Tema
 
-1.  Unduh (Download) repositori ini sebagai ZIP.
-2.  Masuk ke dashboard WordPress Anda.
-3.  Buka **Tampilan (Appearance) > Tema (Themes) > Tambah Baru**.
-4.  Unggah file ZIP yang telah diunduh.
-5.  **Aktifkan** tema TokoKu.
-6.  Buka menu **TokoKu** di sidebar admin untuk mulai mengatur toko Anda.
-
----
-
-## 🛠️ Persyaratan
-*   WordPress 5.0 atau yang terbaru.
-*   PHP 7.4 atau yang terbaru.
-*   Tidak memerlukan WooCommerce (Order langsung via WhatsApp).
+1. Masuk ke Dashboard WordPress Anda (`namadomain.com/wp-admin`).
+2. Buka menu **Tampilan (Appearance) > Tema (Themes)**.
+3. Klik tombol **Tambah Baru (Add New)** di bagian atas.
+4. Klik **Unggah Tema (Upload Theme)**.
+5. Pilih file `tokoku.zip` yang telah Anda unduh, lalu klik **Instal Sekarang**.
+6. Setelah instalasi selesai, klik **Aktifkan**.
 
 ---
 
-## 👨‍💻 Developer
-Dibuat dengan ❤️ oleh **m.alfiandiismet**.
+## 🔐 Cara Mengaktifkan Lisensi (PENTING)
+
+Agar Anda mendapatkan akses ke **Pembaruan Otomatis (One-Click Update)** dan dukungan penuh, Anda wajib mengaktifkan lisensi tema Anda:
+
+1. Di Dashboard WordPress, cari menu **TokoKu** di sidebar kiri bawah.
+2. Klik tab **Lisensi Tema** (ikon perisai/shield).
+3. Masukkan **Kode Lisensi** (format: `TK-XXXX-XXXX-XXXX`) yang telah diberikan oleh penjual.
+4. Klik tombol biru **Aktivasi Sekarang**.
+5. Tunggu beberapa detik. Jika berhasil, status akan berubah menjadi hijau: **"Tema Teraktivasi"**.
 
 ---
 
-## 📄 Lisensi
-Tema ini tersedia untuk penggunaan pribadi dan komersial. Dilarang menghapus kredit developer tanpa izin.
+## ⚙️ Pengaturan Awal (Quick Setup)
+
+Setelah lisensi aktif, ikuti langkah berikut untuk menyusun toko Anda:
+
+1. **Atur WhatsApp**: Buka tab **WhatsApp** di pengaturan TokoKu, masukkan nomor HP Anda (Gunakan format 628xxx) dan atur pesan otomatisnya.
+2. **Desain Tampilan**: Buka tab **Appearance**, unggah Logo toko Anda, atur warna utama (Primary Color) yang sesuai dengan brand Anda.
+3. **Banner Promosi**: Buka tab **Banner Slider** untuk menambahkan gambar promosi yang akan muncul di halaman depan.
+4. **Input Produk**: Untuk menambah produk, gunakan menu **Produk TokoKu** di sidebar kiri WordPress. Anda bisa memasukkan Nama Produk, Harga (termasuk harga diskon), SKU, dan Galeri Gambar.
+
+---
+
+## 🔄 Cara Melakukan Pembaruan (Update)
+
+TokoKu dilengkapi dengan sistem pembaruan otomatis yang sangat aman. Jika ada versi terbaru yang dirilis:
+1. Buka menu **TokoKu** > tab **Pembaruan Tema**.
+2. Klik tombol **Cek Pembaruan**.
+3. Jika versi baru tersedia, akan muncul peringatan biru beserta rincian versi barunya.
+4. Klik tombol **Perbarui Sekarang**.
+5. Sistem akan mengunduh dan menginstal versi terbaru di latar belakang. Halaman akan otomatis dimuat ulang (reload) setelah selesai.
+
+---
+
+## 💡 Bantuan & Dukungan
+Jika Anda mengalami kesulitan saat instalasi atau penggunaan, silakan hubungi tim dukungan kami dengan menyertakan Kode Lisensi Anda.
+
+Terima kasih telah memilih TokoKu untuk mengembangkan bisnis Anda!

@@ -279,6 +279,60 @@ function tokoku_ajax_handle_license() {
 add_action( 'wp_ajax_tokoku_handle_license', 'tokoku_ajax_handle_license' );
 
 /**
+ * Handle Theme Update via AJAX (One-Click Update)
+ */
+function tokoku_ajax_handle_update() {
+    check_ajax_referer( 'tokoku_update_nonce', 'nonce' );
+
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Permission denied' );
+    }
+
+    $download_url = isset( $_POST['download_url'] ) ? esc_url_raw( $_POST['download_url'] ) : '';
+    
+    if ( empty( $download_url ) ) {
+        wp_send_json_error( 'Invalid download URL' );
+    }
+
+    // Include required WordPress files for upgrader
+    require_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
+    require_once( ABSPATH . 'wp-admin/includes/theme.php' );
+    require_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+    // Skin for feedback (Silent)
+    class Tokoku_Update_Skin extends WP_Upgrader_Skin {
+        public function feedback( $string, ...$args ) {}
+        public function header() {}
+        public function footer() {}
+    }
+
+    $upgrader = new Theme_Upgrader( new Tokoku_Update_Skin() );
+    
+    // Perform the update
+    // We use a custom source filter because GitHub ZIPs have a dynamic root folder name
+    add_filter( 'upgrader_source_selection', function( $source, $remote_source, $upgrader ) {
+        if ( strpos( $source, 'Tokoku-Tema-Wordpress' ) !== false ) {
+            $new_source = trailingslashit( $remote_source ) . 'tokoku/';
+            if ( rename( $source, $new_source ) ) {
+                return $new_source;
+            }
+        }
+        return $source;
+    }, 10, 3 );
+
+    $result = $upgrader->install( $download_url, array( 'overwrite_package' => true ) );
+
+    if ( is_wp_error( $result ) ) {
+        wp_send_json_error( $result->get_error_message() );
+    } elseif ( ! $result ) {
+        wp_send_json_error( 'Update failed' );
+    }
+
+    wp_send_json_success( 'Theme updated successfully' );
+}
+add_action( 'wp_ajax_tokoku_handle_update', 'tokoku_ajax_handle_update' );
+
+/**
  * Settings Page HTML
  */
 function tokoku_settings_page_html() {
@@ -1214,13 +1268,22 @@ function tokoku_settings_page_html() {
                     var releaseName = data.name || data.tag_name;
                     
                     if (latestVersion > currentVersion) {
-                        status.html('<div style="color: #2563eb; background: #eff6ff; padding: 15px; border-radius: 8px; border: 1px solid #bfdbfe;">' +
-                                    '<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">' +
-                                    '<span class="dashicons dashicons-warning" style="color: #2563eb;"></span> ' +
-                                    '<strong><?php _e( 'Versi Baru Tersedia!', 'tokoku' ); ?> (' + releaseName + ')</strong>' +
+                        status.html('<div style="color: #2563eb; background: #eff6ff; padding: 20px; border-radius: 12px; border: 1px solid #bfdbfe;">' +
+                                    '<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">' +
+                                    '<span class="dashicons dashicons-warning" style="color: #2563eb; font-size: 24px; width: 24px; height: 24px;"></span> ' +
+                                    '<strong style="font-size: 1.1rem;"><?php esc_html_e( 'Versi Baru Tersedia!', 'tokoku' ); ?> (' + latestVersion + ')</strong>' +
                                     '</div>' +
-                                    '<p style="margin: 0 0 15px 28px; font-size: 0.9rem; color: #1e40af;"><?php _e( 'Fitur dan perbaikan baru telah dirilis. Silakan unduh pembaruan untuk menjaga performa toko Anda.', 'tokoku' ); ?></p>' +
-                                    '<a href="' + releaseUrl + '" target="_blank" class="button button-primary" style="margin-left: 28px; background: #2563eb; border-color: #2563eb;"><?php _e( 'Unduh di GitHub', 'tokoku' ); ?></a>' +
+                                    '<p style="margin: 0 0 20px 34px; font-size: 0.95rem; color: #1e40af; line-height: 1.5;"><?php esc_html_e( 'Pembaruan v' + latestVersion + ' telah dirilis dengan fitur dan peningkatan keamanan terbaru. Klik tombol di bawah untuk memperbarui secara otomatis.', 'tokoku' ); ?></p>' +
+                                    '<div style="margin-left: 34px; display: flex; gap: 10px;">' +
+                                    '<button type="button" id="tokoku-install-update" data-url="' + data.zipball_url + '" class="button button-primary" style="height: 44px; padding: 0 25px; background: #2563eb; border-color: #2563eb; font-weight: 600;">' +
+                                    '<span class="dashicons dashicons-update" style="vertical-align: middle; margin-right: 5px;"></span> <?php esc_html_e( 'Perbarui Sekarang', 'tokoku' ); ?>' +
+                                    '</button>' +
+                                    '<a href="' + releaseUrl + '" target="_blank" class="button" style="height: 44px; display: flex; align-items: center;"><?php esc_html_e( 'Lihat Log Perubahan', 'tokoku' ); ?></a>' +
+                                    '</div>' +
+                                    '<div id="tokoku-install-loader" style="display: none; margin: 15px 0 0 34px; align-items: center; gap: 10px; color: #2563eb;">' +
+                                    '<div class="tokoku-spinner"></div>' +
+                                    '<span><?php esc_html_e( 'Sedang menginstal pembaruan... Mohon tunggu sebentar.', 'tokoku' ); ?></span>' +
+                                    '</div>' +
                                     '</div>');
                     } else {
                         status.html('<div style="display: flex; align-items: center; gap: 10px; color: #059669;">' +
@@ -1241,6 +1304,39 @@ function tokoku_settings_page_html() {
                                 '<p style="margin: 5px 0 0 28px; font-size: 0.85rem; color: #64748b;">' + error.message + '</p>');
                     status.fadeIn();
                 });
+        });
+
+        // 🚀 One-Click Install Logic
+        $(document).on('click', '#tokoku-install-update', function() {
+            var btn = $(this);
+            var zipUrl = btn.data('url');
+            var loader = $('#tokoku-install-loader');
+            
+            if (!confirm('Apakah Anda yakin ingin memperbarui tema sekarang? Website Anda tidak dapat diakses selama beberapa detik saat proses instalasi.')) {
+                return;
+            }
+
+            btn.prop('disabled', true).css('opacity', '0.5');
+            loader.css('display', 'flex');
+
+            $.post(ajaxurl, {
+                action: 'tokoku_handle_update',
+                download_url: zipUrl,
+                nonce: '<?php echo wp_create_nonce("tokoku_update_nonce"); ?>'
+            }, function(response) {
+                loader.hide();
+                if (response.success) {
+                    alert('Selamat! Tema TokoKu telah berhasil diperbarui ke versi terbaru. Halaman akan dimuat ulang.');
+                    location.reload();
+                } else {
+                    alert('Gagal memperbarui tema: ' + response.data);
+                    btn.prop('disabled', false).css('opacity', '1');
+                }
+            }).fail(function() {
+                loader.hide();
+                alert('Terjadi kesalahan jaringan atau server saat mencoba melakukan pembaruan.');
+                btn.prop('disabled', false).css('opacity', '1');
+            });
         });
 
         // 🛡️ License Activation Logic
